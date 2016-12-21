@@ -48,11 +48,13 @@ public final class Base47 {
         throw new UnsupportedOperationException("Class is not instantiable");
     }
 
+    @NotNull
     private static String byteToString(byte bite) {
         return Integer.toBinaryString((bite & 0xFF) + 0x100).substring(1);
     }
 
-    private static String byteArrayToString(byte[] bytes) {
+    @NotNull
+    private static String byteArrayToString(@NotNull byte[] bytes) {
         StringBuilder stringBuilder = new StringBuilder();
         for (byte bite : bytes) {
             stringBuilder.append(Base47.byteToString(bite));
@@ -61,7 +63,8 @@ public final class Base47 {
         return stringBuilder.toString();
     }
 
-    private static byte[] bitStringToByteArray(String bytes) {
+    @NotNull
+    private static byte[] bitStringToByteArray(@NotNull String bytes) {
         if (bytes.length() % 8 != 0) {
             throw new RuntimeException("Unsupported string length");
         }
@@ -79,9 +82,21 @@ public final class Base47 {
             index++;
         }
 
+        if (index != newBytes.length) {
+            throw new UnsupportedOperationException(
+                    "Byte array was not completely filled, length was " + newBytes.length +
+                    ", last filled index was " + (index - 1));
+        }
+
         return newBytes;
     }
 
+    /**
+     * Encodes a byte array as a string of emojis.
+     *
+     * @param bytes the bytes to encode in base 47.
+     * @return the encoded string of emojis.
+     */
     @NotNull
     public static String encode(@NotNull byte[] bytes) {
         Preconditions.checkNotNull(bytes);
@@ -89,6 +104,13 @@ public final class Base47 {
         return convertNumber(byteArrayToString(bytes), BASE_2, BASE_47);
     }
 
+    /**
+     * Decodes a string of previously encoded emojis
+     * back into the original byte array.
+     *
+     * @param string the base 47 emoji string to decode.
+     * @return the original decoded bytes.
+     */
     @NotNull
     public static byte[] decode(@NotNull String string) {
         Preconditions.checkNotNull(string);
@@ -112,11 +134,13 @@ public final class Base47 {
         return bitStringToByteArray(postConversion.toString());
     }
 
+    @NotNull
     private static String zeroAsBase(int base) {
         return String.valueOf(valueToDigit(0, base));
     }
 
-    private static String convertNumber(String number, int oldBase, int newBase) {
+    @NotNull
+    private static String convertNumber(@NotNull String number, int oldBase, int newBase) {
         String newNumber = "";
 
         MutableInteger remainder = new MutableInteger();
@@ -136,7 +160,9 @@ public final class Base47 {
         return finalConvertedNumber;
     }
 
-    private static String divideNumber(String number, int base, int divisor, MutableInteger remainder) {
+    @NotNull
+    private static String divideNumber(@NotNull String number, int base, int divisor,
+                                       @NotNull MutableInteger remainder) {
         remainder.setNumber(0);
         final StringBuilder result = new StringBuilder();
 
@@ -178,16 +204,28 @@ public final class Base47 {
         return resultString;
     }
 
-    private static int digitToValue(int base, String digit) {
+    private static int digitToValue(int base, @NotNull String digit) {
+        int index;
         if (base == BASE_2) {
-            return indexOf(CHARACTERS_2_ARRAY, digit);
+            index = indexOf(CHARACTERS_2_ARRAY, digit);
         } else if (base == BASE_47) {
-            return indexOf(CHARACTERS_ARRAY, digit);
+            index = indexOf(CHARACTERS_ARRAY, digit);
+        } else {
+            throw new RuntimeException("Unsupported base: " + base);
         }
-        throw new RuntimeException("Unsupported base: " + base);
+        if (index < 0) {
+            throw new UnsupportedOperationException(
+                    "Unable to find string charset for base " + digit + ": " + digit);
+        } else {
+            return index;
+        }
     }
 
+    @NotNull
     private static String valueToDigit(int value, int base) {
+        if (value >= base) {
+            throw new IndexOutOfBoundsException("Index was " + value + ", must not be greater than " + base);
+        }
         if (base == BASE_2) {
             return CHARACTERS_2_ARRAY[value];
         } else if (base == BASE_47) {
@@ -196,7 +234,7 @@ public final class Base47 {
         throw new RuntimeException("Unsupported base: " + base);
     }
 
-    private static int indexOf(String[] array, String string) {
+    private static int indexOf(@NotNull String[] array, @NotNull String string) {
         for (int n = 0; n < array.length; n++) {
             if (string.equals(array[n])) {
                 return n;
