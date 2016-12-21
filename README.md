@@ -2,7 +2,7 @@
 A Base₄₇ encoder/decoder that uses emojis as its character set
 
 ## What? 🤔
-This is a silly base encoding algorithm. It purposefully uses an inefficient base to encode to, base 47, and also uses a non-traditional character set. The character set used is a subset of unicode emojis, most of the animal emojis. 
+This is a silly base encoding algorithm written in Java. It purposefully uses an inefficient base to encode to, base 47, and also uses a non-traditional character set. The character set used is a subset of unicode emojis, most of the animal emojis. 
 
 ## Usage 🙄
 
