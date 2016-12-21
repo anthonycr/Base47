@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Base₄₇</string>
+    <string name="encoded">Encoded: %1$s</string>
+    <string name="decoded">Decoded: %1$s</string>
 </resources>
