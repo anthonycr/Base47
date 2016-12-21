@@ -1,0 +1,9 @@
+apply plugin: 'java'
+
+dependencies {
+    compile 'com.intellij:annotations:12.0@jar'
+    testCompile 'junit:junit:4.12'
+}
+
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"
