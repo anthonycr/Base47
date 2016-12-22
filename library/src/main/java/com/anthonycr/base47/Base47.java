@@ -55,9 +55,9 @@ public final class Base47 {
 
     @NotNull
     private static String byteArrayToString(@NotNull byte[] bytes) {
-        StringBuilder stringBuilder = new StringBuilder();
+        StringBuilder stringBuilder = new StringBuilder(bytes.length * 8);
         for (byte bite : bytes) {
-            stringBuilder.append(Base47.byteToString(bite));
+            stringBuilder.append(byteToString(bite));
         }
 
         return stringBuilder.toString();
@@ -74,7 +74,8 @@ public final class Base47 {
         int index = 0;
 
         for (int n = 0; n <= bytes.length() - 8; n += 8) {
-            StringBuilder inner = new StringBuilder();
+            StringBuilder inner = new StringBuilder(8);
+
             for (int i = 0; i < 8; i++) {
                 inner.append(bytes.charAt(n + i));
             }
@@ -164,7 +165,7 @@ public final class Base47 {
     private static String divideNumber(@NotNull String number, int base, int divisor,
                                        @NotNull MutableInteger remainder) {
         remainder.setNumber(0);
-        final StringBuilder result = new StringBuilder();
+        final StringBuilder result = new StringBuilder(number.length());
 
         boolean hasCharacters = false;
 
