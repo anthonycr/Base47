@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.math.BigInteger;
-import java.security.SecureRandom;
+import java.util.Random;
 
 /**
  * Sanity test for Base47 encoding.
@@ -15,10 +15,15 @@ public class Base47UnitTest {
 
     private static final int ITERATIONS = 300;
 
-    private final SecureRandom mRandom = new SecureRandom();
+    private final Random mRandom = new Random();
 
     @Test
     public void testEncode_Decode() throws Exception {
+        long start = System.currentTimeMillis();
+
+        // Make test deterministic
+        mRandom.setSeed(0);
+
         for (int n = 0; n < ITERATIONS; n++) {
             String randomString = randomString(n);
             String encoded = Base47.encode(randomString.getBytes());
@@ -30,6 +35,7 @@ public class Base47UnitTest {
 
             Assert.assertEquals(randomString, new String(decoded));
         }
+        System.out.println("Encode/Decode took: " + (System.currentTimeMillis() - start) + " ms");
     }
 
     private String randomString(int number) {
