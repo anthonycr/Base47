@@ -1,3 +1,26 @@
+/*
+ * MIT License
+ * <p>
+ * Copyright (c) 2017 Anthony Restaino
+ * <p>
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * <p>
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * <p>
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 package com.anthonycr.base47;
 
 import org.jetbrains.annotations.NotNull;
@@ -27,21 +50,21 @@ public final class Base47 {
     private static final int BASE_47 = 47;
 
     private static final String[] CHARACTERS_2_ARRAY = {
-            "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "I",
-            "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b",
-            "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u",
-            "v", "w", "x", "y", "z"
+        "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "I",
+        "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b",
+        "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u",
+        "v", "w", "x", "y", "z"
     };
 
     private static final String[] CHARACTERS_ARRAY = {
-            "\uD83D\uDC36", "\uD83D\uDC31", "\uD83D\uDC2D", "\uD83D\uDC39", "\uD83D\uDC30", "\uD83D\uDC3B",
-            "\uD83D\uDC3C", "\uD83D\uDC28", "\uD83D\uDC2F", "\uD83E\uDD81", "\uD83D\uDC2E", "\uD83D\uDC37",
-            "\uD83D\uDC38", "\uD83D\uDC19", "\uD83D\uDC35", "\uD83D\uDE48", "\uD83D\uDE49", "\uD83D\uDE4A",
-            "\uD83D\uDC12", "\uD83D\uDC14", "\uD83D\uDC27", "\uD83D\uDC26", "\uD83D\uDC24", "\uD83D\uDC23",
-            "\uD83D\uDC25", "\uD83D\uDC3A", "\uD83D\uDC17", "\uD83D\uDC34", "\uD83E\uDD84", "\uD83D\uDC1D",
-            "\uD83D\uDC1B", "\uD83D\uDC0C", "\uD83D\uDC1E", "\uD83E\uDD80", "\uD83D\uDC0D", "\uD83D\uDC22",
-            "\uD83D\uDC20", "\uD83D\uDC1F", "\uD83D\uDC21", "\uD83D\uDC2C", "\uD83D\uDC33", "\uD83D\uDC18",
-            "\uD83D\uDC16", "\uD83D\uDD4A", "\uD83D\uDC3F", "\uD83E\uDD8D", "\uD83E\uDD8C"
+        "\uD83D\uDC36", "\uD83D\uDC31", "\uD83D\uDC2D", "\uD83D\uDC39", "\uD83D\uDC30", "\uD83D\uDC3B",
+        "\uD83D\uDC3C", "\uD83D\uDC28", "\uD83D\uDC2F", "\uD83E\uDD81", "\uD83D\uDC2E", "\uD83D\uDC37",
+        "\uD83D\uDC38", "\uD83D\uDC19", "\uD83D\uDC35", "\uD83D\uDE48", "\uD83D\uDE49", "\uD83D\uDE4A",
+        "\uD83D\uDC12", "\uD83D\uDC14", "\uD83D\uDC27", "\uD83D\uDC26", "\uD83D\uDC24", "\uD83D\uDC23",
+        "\uD83D\uDC25", "\uD83D\uDC3A", "\uD83D\uDC17", "\uD83D\uDC34", "\uD83E\uDD84", "\uD83D\uDC1D",
+        "\uD83D\uDC1B", "\uD83D\uDC0C", "\uD83D\uDC1E", "\uD83E\uDD80", "\uD83D\uDC0D", "\uD83D\uDC22",
+        "\uD83D\uDC20", "\uD83D\uDC1F", "\uD83D\uDC21", "\uD83D\uDC2C", "\uD83D\uDC33", "\uD83D\uDC18",
+        "\uD83D\uDC16", "\uD83D\uDD4A", "\uD83D\uDC3F", "\uD83E\uDD8D", "\uD83E\uDD8C"
     };
 
     private Base47() {
@@ -85,7 +108,7 @@ public final class Base47 {
 
         if (index != newBytes.length) {
             throw new UnsupportedOperationException(
-                    "Byte array was not completely filled, length was " + newBytes.length +
+                "Byte array was not completely filled, length was " + newBytes.length +
                     ", last filled index was " + (index - 1));
         }
 
@@ -216,7 +239,7 @@ public final class Base47 {
         }
         if (index < 0) {
             throw new UnsupportedOperationException(
-                    "Unable to find string charset for base " + digit + ": " + digit);
+                "Unable to find string charset for base " + digit + ": " + digit);
         } else {
             return index;
         }
