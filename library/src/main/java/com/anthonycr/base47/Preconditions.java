@@ -14,7 +14,7 @@ final class Preconditions {
         throw new UnsupportedOperationException("Class is not instantiable");
     }
 
-    public static void checkNotNull(@Nullable Object object) {
+    static void checkNotNull(@Nullable Object object) {
         if (object == null) {
             throw new NullPointerException("Object must not be null");
         }

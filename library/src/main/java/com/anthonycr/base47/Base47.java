@@ -25,6 +25,8 @@ package com.anthonycr.base47;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 /**
  * A base encoding algorithm that takes in an array of bytes and outputs a string of emoji.
  * The details of implementation are as follows. First, the binary array is converted to a
@@ -167,11 +169,12 @@ public final class Base47 {
     private static String convertNumber(@NotNull String number, int oldBase, int newBase) {
         String newNumber = "";
 
-        MutableInteger remainder = new MutableInteger();
+        AtomicInteger remainder = new AtomicInteger();
+
         while (!zeroAsBase(oldBase).equals(number)) {
-            remainder.setNumber(0);
+            remainder.set(0);
             number = divideNumber(number, oldBase, newBase, remainder);
-            String newDigit = valueToDigit(remainder.getNumber(), newBase);
+            String newDigit = valueToDigit(remainder.get(), newBase);
 
             newNumber = newDigit + newNumber;
         }
@@ -186,8 +189,8 @@ public final class Base47 {
 
     @NotNull
     private static String divideNumber(@NotNull String number, int base, int divisor,
-                                       @NotNull MutableInteger remainder) {
-        remainder.setNumber(0);
+                                       @NotNull AtomicInteger remainder) {
+        remainder.set(0);
         final StringBuilder result = new StringBuilder(number.length());
 
         boolean hasCharacters = false;
@@ -209,9 +212,9 @@ public final class Base47 {
 
             digitValue = digitToValue(base, value);
 
-            remainder.setNumber(base * remainder.getNumber() + digitValue);
-            int newDigitValue = remainder.getNumber() / divisor;
-            remainder.setNumber(remainder.getNumber() % divisor);
+            remainder.set(base * remainder.get() + digitValue);
+            int newDigitValue = remainder.get() / divisor;
+            remainder.set(remainder.get() % divisor);
 
             if (newDigitValue > 0 || hasCharacters) {
                 String newDigits = valueToDigit(newDigitValue, base);
