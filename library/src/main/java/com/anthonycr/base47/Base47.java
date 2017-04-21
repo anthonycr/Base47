@@ -167,7 +167,11 @@ public final class Base47 {
 
     @NotNull
     private static String convertNumber(@NotNull String number, int oldBase, int newBase) {
-        StringBuilder newNumber = new StringBuilder();
+        // Calculating the character length of the new number using
+        // http://stackoverflow.com/a/962327/1499541
+        int size = (int) Math.round(number.length() * Math.log(oldBase) / Math.log(newBase) + 1);
+
+        StringBuilder newNumber = new StringBuilder(size);
 
         AtomicInteger remainder = new AtomicInteger();
 
@@ -199,17 +203,16 @@ public final class Base47 {
 
             final int codePoint = number.codePointAt(n);
 
-            String value = "";
-
             int codePointCount = Character.charCount(codePoint);
+            StringBuilder value = new StringBuilder(codePointCount);
 
             for (int i = n; i < (n + codePointCount); i++) {
-                value += number.charAt(i);
+                value.append(number.charAt(i));
             }
 
             n += codePointCount;
 
-            digitValue = digitToValue(base, value);
+            digitValue = digitToValue(base, value.toString());
 
             remainder.set(base * remainder.get() + digitValue);
             int newDigitValue = remainder.get() / divisor;
