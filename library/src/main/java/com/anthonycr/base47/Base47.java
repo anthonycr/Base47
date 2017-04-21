@@ -250,7 +250,7 @@ public final class Base47 {
         }
         if (index < 0) {
             throw new UnsupportedOperationException(
-                "Unable to find string charset for base " + digit + ": " + digit);
+                "Unable to find string charset for base " + base + ": " + digit);
         } else {
             return index;
         }
