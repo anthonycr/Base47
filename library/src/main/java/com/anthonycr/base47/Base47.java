@@ -175,9 +175,12 @@ public final class Base47 {
 
         AtomicInteger remainder = new AtomicInteger();
 
+        StringBuilder reusableResultBuilder = new StringBuilder(number.length());
+        StringBuilder reusableValueBuilder = new StringBuilder(2);
+
         while (!zeroAsBase(oldBase).equals(number)) {
             remainder.set(0);
-            number = divideNumber(number, oldBase, newBase, remainder);
+            number = divideNumber(number, oldBase, newBase, remainder, reusableResultBuilder, reusableValueBuilder);
             String newDigit = valueToDigit(remainder.get(), newBase);
 
             newNumber.insert(0, newDigit);
@@ -191,10 +194,14 @@ public final class Base47 {
     }
 
     @NotNull
-    private static String divideNumber(@NotNull String number, int base, int divisor,
-                                       @NotNull AtomicInteger remainder) {
+    private static String divideNumber(@NotNull String number,
+                                       int base,
+                                       int divisor,
+                                       @NotNull AtomicInteger remainder,
+                                       @NotNull StringBuilder resultBuilder,
+                                       @NotNull StringBuilder valueBuilder) {
         remainder.set(0);
-        final StringBuilder result = new StringBuilder(number.length());
+        resultBuilder.setLength(0);
 
         boolean hasCharacters = false;
 
@@ -204,15 +211,15 @@ public final class Base47 {
             final int codePoint = number.codePointAt(n);
 
             int codePointCount = Character.charCount(codePoint);
-            StringBuilder value = new StringBuilder(codePointCount);
+            valueBuilder.setLength(0);
 
             for (int i = n; i < (n + codePointCount); i++) {
-                value.append(number.charAt(i));
+                valueBuilder.append(number.charAt(i));
             }
 
             n += codePointCount;
 
-            digitValue = digitToValue(base, value.toString());
+            digitValue = digitToValue(base, valueBuilder.toString());
 
             remainder.set(base * remainder.get() + digitValue);
             int newDigitValue = remainder.get() / divisor;
@@ -221,11 +228,11 @@ public final class Base47 {
             if (newDigitValue > 0 || hasCharacters) {
                 String newDigits = valueToDigit(newDigitValue, base);
                 hasCharacters = true;
-                result.append(newDigits);
+                resultBuilder.append(newDigits);
             }
         }
 
-        String resultString = result.toString();
+        String resultString = resultBuilder.toString();
         if (resultString.isEmpty()) {
             return zeroAsBase(base);
         }
