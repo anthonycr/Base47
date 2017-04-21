@@ -163,11 +163,12 @@ public final class Base47 {
     @NotNull
     private static String zeroAsBase(int base) {
         return String.valueOf(valueToDigit(0, base));
+        return valueToDigit(0, base);
     }
 
     @NotNull
     private static String convertNumber(@NotNull String number, int oldBase, int newBase) {
-        String newNumber = "";
+        StringBuilder newNumber = new StringBuilder();
 
         AtomicInteger remainder = new AtomicInteger();
 
@@ -176,15 +177,14 @@ public final class Base47 {
             number = divideNumber(number, oldBase, newBase, remainder);
             String newDigit = valueToDigit(remainder.get(), newBase);
 
-            newNumber = newDigit + newNumber;
+            newNumber.insert(0, newDigit);
         }
 
-        String finalConvertedNumber = newNumber;
 
-        if (finalConvertedNumber.isEmpty()) {
+        if (newNumber.length() == 0) {
             return zeroAsBase(newBase);
         }
-        return finalConvertedNumber;
+        return newNumber.toString();
     }
 
     @NotNull
