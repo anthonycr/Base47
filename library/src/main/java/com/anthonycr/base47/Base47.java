@@ -162,7 +162,6 @@ public final class Base47 {
 
     @NotNull
     private static String zeroAsBase(int base) {
-        return String.valueOf(valueToDigit(0, base));
         return valueToDigit(0, base);
     }
 
