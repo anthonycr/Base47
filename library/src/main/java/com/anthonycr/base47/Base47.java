@@ -95,8 +95,10 @@ public final class Base47 {
 
         int index = 0;
 
+        StringBuilder inner = new StringBuilder(8);
+
         for (int n = 0; n <= bytes.length() - 8; n += 8) {
-            StringBuilder inner = new StringBuilder(8);
+            inner.setLength(0);
 
             for (int i = 0; i < 8; i++) {
                 inner.append(bytes.charAt(n + i));
