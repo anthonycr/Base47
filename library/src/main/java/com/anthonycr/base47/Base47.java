@@ -241,13 +241,18 @@ public final class Base47 {
 
     private static int digitToValue(int base, @NotNull String digit) {
         int index;
-        if (base == BASE_2) {
-            index = indexOf(CHARACTERS_2_ARRAY, digit);
-        } else if (base == BASE_47) {
-            index = indexOf(CHARACTERS_ARRAY, digit);
-        } else {
-            throw new RuntimeException("Unsupported base: " + base);
+        switch (base) {
+            case BASE_2:
+                index = indexOf(CHARACTERS_2_ARRAY, digit);
+                break;
+            case BASE_47:
+                index = indexOf(CHARACTERS_ARRAY, digit);
+                break;
+            default:
+                throw new RuntimeException("Unsupported base: " + base);
+
         }
+
         if (index < 0) {
             throw new UnsupportedOperationException(
                 "Unable to find string charset for base " + base + ": " + digit);
@@ -261,12 +266,15 @@ public final class Base47 {
         if (value >= base) {
             throw new IndexOutOfBoundsException("Index was " + value + ", must not be greater than " + base);
         }
-        if (base == BASE_2) {
-            return CHARACTERS_2_ARRAY[value];
-        } else if (base == BASE_47) {
-            return CHARACTERS_ARRAY[value];
+
+        switch (base) {
+            case BASE_2:
+                return CHARACTERS_2_ARRAY[value];
+            case BASE_47:
+                return CHARACTERS_ARRAY[value];
+            default:
+                throw new RuntimeException("Unsupported base: " + base);
         }
-        throw new RuntimeException("Unsupported base: " + base);
     }
 
     private static int indexOf(@NotNull String[] array, @NotNull String string) {
