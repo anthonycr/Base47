@@ -212,7 +212,7 @@ public final class Base47 {
             int codePointCount = Character.charCount(codePoint);
             valueBuilder.setLength(0);
 
-            for (int i = n; i < (n + codePointCount); i++) {
+            for (int i = n, max = n + codePointCount; i < max; i++) {
                 valueBuilder.append(number.charAt(i));
             }
 
@@ -221,8 +221,9 @@ public final class Base47 {
             digitValue = digitToValue(base, valueBuilder.toString());
 
             remainder.set(base * remainder.get() + digitValue);
-            int newDigitValue = remainder.get() / divisor;
-            remainder.set(remainder.get() % divisor);
+            int newRemainder = remainder.get();
+            int newDigitValue = newRemainder / divisor;
+            remainder.set(newRemainder % divisor);
 
             if (newDigitValue > 0 || hasCharacters) {
                 String newDigits = valueToDigit(newDigitValue, base);
@@ -231,12 +232,11 @@ public final class Base47 {
             }
         }
 
-        String resultString = resultBuilder.toString();
-        if (resultString.isEmpty()) {
+        if (resultBuilder.length() == 0) {
             return zeroAsBase(base);
         }
 
-        return resultString;
+        return resultBuilder.toString();
     }
 
     private static int digitToValue(int base, @NotNull String digit) {
