@@ -177,7 +177,8 @@ public final class Base47 {
         StringBuilder reusableResultBuilder = new StringBuilder(number.length());
         StringBuilder reusableValueBuilder = new StringBuilder(2);
 
-        while (!zeroAsBase(oldBase).equals(number)) {
+        String zero = zeroAsBase(oldBase);
+        while (!zero.equals(number)) {
             remainder.set(0);
             number = divideNumber(number, oldBase, newBase, remainder, reusableResultBuilder, reusableValueBuilder);
             String newDigit = valueToDigit(remainder.get(), newBase);
