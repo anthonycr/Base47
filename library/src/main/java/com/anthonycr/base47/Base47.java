@@ -126,7 +126,7 @@ public final class Base47 {
     public static String encode(@NotNull byte[] bytes) {
         Preconditions.checkNotNull(bytes);
 
-        return convertNumber(byteArrayToString(bytes), BASE_2, BASE_47);
+        return convertNumber(byteArrayToString(bytes), BASE_2, BASE_47).toString();
     }
 
     /**
@@ -140,7 +140,7 @@ public final class Base47 {
     public static byte[] decode(@NotNull String string) {
         Preconditions.checkNotNull(string);
 
-        String preConversion = convertNumber(string, BASE_47, BASE_2);
+        StringBuilder preConversion = convertNumber(string, BASE_47, BASE_2);
 
         int prependZero = 8 - (preConversion.length() % 8);
 
@@ -165,7 +165,7 @@ public final class Base47 {
     }
 
     @NotNull
-    private static String convertNumber(@NotNull String number, int oldBase, int newBase) {
+    private static StringBuilder convertNumber(@NotNull String number, int oldBase, int newBase) {
         // Calculating the character length of the new number using
         // http://stackoverflow.com/a/962327/1499541
         int size = (int) Math.round(number.length() * Math.log(oldBase) / Math.log(newBase) + 1);
@@ -186,10 +186,10 @@ public final class Base47 {
         }
 
         if (newNumber.length() == 0) {
-            return zeroAsBase(newBase);
+            return new StringBuilder(zeroAsBase(newBase));
         }
 
-        return newNumber.toString();
+        return newNumber;
     }
 
     @NotNull
@@ -220,8 +220,7 @@ public final class Base47 {
 
             digitValue = digitToValue(base, valueBuilder.toString());
 
-            remainder.set(base * remainder.get() + digitValue);
-            int newRemainder = remainder.get();
+            int newRemainder = base * remainder.get() + digitValue;
             int newDigitValue = newRemainder / divisor;
             remainder.set(newRemainder % divisor);
 
