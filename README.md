@@ -16,15 +16,15 @@ dependencies {
 Encode
 
 #### Kotlin
-```java
-val testString = "Hello World!!!";
+```kotlin
+val testString = "Hello World!!!"
 
-val encodedTestString = Base47.encode(testString.getBytes());
+val encodedTestString = Base47.encode(testString.getBytes())
 ...
 ```
 
 #### Java
-```kotlin
+```java
 String testString = "Hello World!!!";
 
 String encodedTestString = Base47.encode(testString.getBytes());
@@ -36,11 +36,11 @@ Decode
 #### Kotlin
 ```kotlin
 ...
-val decodedTestStringBytes = Base47.decode(encodedTestString);
+val decodedTestStringBytes = Base47.decode(encodedTestString)
 
-val = new String(decodedTestStringBytes);
+val decodedTestString = new String(decodedTestStringBytes)
 
-assert(decodedTestString == testString);
+assert(decodedTestString == testString)
 ```
 
 #### Java
