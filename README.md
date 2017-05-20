@@ -16,7 +16,7 @@ dependencies {
 Encode
 
 #### Kotlin
-```java
+```kotlin
 val testString = "Hello World!!!";
 
 val encodedTestString = Base47.encode(testString.getBytes());
@@ -24,7 +24,7 @@ val encodedTestString = Base47.encode(testString.getBytes());
 ```
 
 #### Java
-```kotlin
+```java
 String testString = "Hello World!!!";
 
 String encodedTestString = Base47.encode(testString.getBytes());
