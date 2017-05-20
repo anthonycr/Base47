@@ -38,7 +38,7 @@ Decode
 ...
 val decodedTestStringBytes = Base47.decode(encodedTestString);
 
-val = new String(decodedTestStringBytes);
+val decodedTestString = new String(decodedTestStringBytes);
 
 assert(decodedTestString == testString);
 ```
