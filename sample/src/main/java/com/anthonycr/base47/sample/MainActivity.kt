@@ -33,8 +33,6 @@ class MainActivity : AppCompatActivity() {
 
         handlerThread.start()
 
-        val text = "Hello World \uD83D\uDE0E"
-        editText.setText(text)
         editText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
 
@@ -45,7 +43,7 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-
+        editText.setText("Hello World \uD83D\uDE0E")
     }
 
     private fun postOrQueueRunnable(encodeRunnable: Runnable) {
@@ -53,8 +51,9 @@ class MainActivity : AppCompatActivity() {
         val wrapperRunnable = object : Runnable {
             override fun run() {
                 encodeRunnable.run()
-                if (this != postRunnable && postRunnable != null) {
-                    postRunnable!!.run()
+                val runnable = postRunnable
+                if (this != runnable && runnable != null) {
+                    runnable.run()
                 } else {
                     postRunnable = null
                 }
@@ -83,7 +82,8 @@ class MainActivity : AppCompatActivity() {
         private val MAIN = Handler(Looper.getMainLooper())
 
         @WorkerThread
-        private fun encode(textToEncode: String, encodeView: TextView,
+        private fun encode(textToEncode: String,
+                           encodeView: TextView,
                            decodeView: TextView) {
             val encoded = Base47.encode(textToEncode.toByteArray())
             Log.d(TAG, "ENCODED: " + encoded)

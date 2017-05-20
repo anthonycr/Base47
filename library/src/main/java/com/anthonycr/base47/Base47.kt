@@ -36,10 +36,10 @@ import java.util.concurrent.atomic.AtomicInteger
  * This class has 2 methods:
  *
  *
- * [.encode] - which encodes a byte array, returning an emoji string in base 47.
+ * [Base47.encode] - which encodes a byte array, returning an emoji string in base 47.
  *
  *
- * [.decode] - which takes an emoji base 47 encoded string and returns the
+ * [Base47.decode] - which takes an emoji base 47 encoded string and returns the
  * original byte array.
  *
  *
@@ -56,7 +56,20 @@ object Base47 {
 
     private val CHARACTERS_2_ARRAY = arrayOf("0", "1")
 
-    private val CHARACTERS_ARRAY = arrayOf("\uD83D\uDC36", "\uD83D\uDC31", "\uD83D\uDC2D", "\uD83D\uDC39", "\uD83D\uDC30", "\uD83D\uDC3B", "\uD83D\uDC3C", "\uD83D\uDC28", "\uD83D\uDC2F", "\uD83E\uDD81", "\uD83D\uDC2E", "\uD83D\uDC37", "\uD83D\uDC38", "\uD83D\uDC19", "\uD83D\uDC35", "\uD83D\uDE48", "\uD83D\uDE49", "\uD83D\uDE4A", "\uD83D\uDC12", "\uD83D\uDC14", "\uD83D\uDC27", "\uD83D\uDC26", "\uD83D\uDC24", "\uD83D\uDC23", "\uD83D\uDC25", "\uD83D\uDC3A", "\uD83D\uDC17", "\uD83D\uDC34", "\uD83E\uDD84", "\uD83D\uDC1D", "\uD83D\uDC1B", "\uD83D\uDC0C", "\uD83D\uDC1E", "\uD83E\uDD80", "\uD83D\uDC0D", "\uD83D\uDC22", "\uD83D\uDC20", "\uD83D\uDC1F", "\uD83D\uDC21", "\uD83D\uDC2C", "\uD83D\uDC33", "\uD83D\uDC18", "\uD83D\uDC16", "\uD83D\uDD4A", "\uD83D\uDC3F", "\uD83E\uDD8D", "\uD83E\uDD8C")
+    private val CHARACTERS_ARRAY = arrayOf(
+            "\uD83D\uDC36", "\uD83D\uDC31", "\uD83D\uDC2D", "\uD83D\uDC39",
+            "\uD83D\uDC30", "\uD83D\uDC3B", "\uD83D\uDC3C", "\uD83D\uDC28",
+            "\uD83D\uDC2F", "\uD83E\uDD81", "\uD83D\uDC2E", "\uD83D\uDC37",
+            "\uD83D\uDC38", "\uD83D\uDC19", "\uD83D\uDC35", "\uD83D\uDE48",
+            "\uD83D\uDE49", "\uD83D\uDE4A", "\uD83D\uDC12", "\uD83D\uDC14",
+            "\uD83D\uDC27", "\uD83D\uDC26", "\uD83D\uDC24", "\uD83D\uDC23",
+            "\uD83D\uDC25", "\uD83D\uDC3A", "\uD83D\uDC17", "\uD83D\uDC34",
+            "\uD83E\uDD84", "\uD83D\uDC1D", "\uD83D\uDC1B", "\uD83D\uDC0C",
+            "\uD83D\uDC1E", "\uD83E\uDD80", "\uD83D\uDC0D", "\uD83D\uDC22",
+            "\uD83D\uDC20", "\uD83D\uDC1F", "\uD83D\uDC21", "\uD83D\uDC2C",
+            "\uD83D\uDC33", "\uD83D\uDC18", "\uD83D\uDC16", "\uD83D\uDD4A",
+            "\uD83D\uDC3F", "\uD83E\uDD8D", "\uD83E\uDD8C"
+    )
 
     private fun byteToString(bite: Byte): String {
         return Integer.toBinaryString((bite.toInt() and 0xFF) + 0x100).substring(1)
