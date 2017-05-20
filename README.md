@@ -17,9 +17,9 @@ Encode
 
 #### Kotlin
 ```kotlin
-val testString = "Hello World!!!";
+val testString = "Hello World!!!"
 
-val encodedTestString = Base47.encode(testString.getBytes());
+val encodedTestString = Base47.encode(testString.getBytes())
 ...
 ```
 
@@ -36,11 +36,11 @@ Decode
 #### Kotlin
 ```kotlin
 ...
-val decodedTestStringBytes = Base47.decode(encodedTestString);
+val decodedTestStringBytes = Base47.decode(encodedTestString)
 
-val decodedTestString = new String(decodedTestStringBytes);
+val decodedTestString = new String(decodedTestStringBytes)
 
-assert(decodedTestString == testString);
+assert(decodedTestString == testString)
 ```
 
 #### Java
