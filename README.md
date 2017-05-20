@@ -13,7 +13,7 @@ dependencies {
 }
 ```
 
-Encode
+### Encode
 
 #### Kotlin
 ```kotlin
@@ -31,7 +31,7 @@ String encodedTestString = Base47.encode(testString.getBytes());
 ...
 ```
 
-Decode
+### Decode
 
 #### Kotlin
 ```kotlin
