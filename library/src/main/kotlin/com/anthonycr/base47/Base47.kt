@@ -108,9 +108,8 @@ object Base47 {
         }
 
         if (index != newBytes.size) {
-            throw UnsupportedOperationException(
-                    "Byte array was not completely filled, length was " + newBytes.size +
-                            ", last filled index was " + (index - 1))
+            throw UnsupportedOperationException("Byte array was not completely filled, length was " +
+                    newBytes.size + ", last filled index was " + (index - 1))
         }
 
         return newBytes
@@ -124,8 +123,6 @@ object Base47 {
      * @return the encoded string of emojis.
      */
     fun encode(bytes: ByteArray): String {
-        Preconditions.checkNotNull(bytes)
-
         return convertNumber(byteArrayToString(bytes), BASE_2, BASE_47).toString()
     }
 
@@ -138,8 +135,6 @@ object Base47 {
      * @return the original decoded bytes.
      */
     fun decode(string: String): ByteArray {
-        Preconditions.checkNotNull(string)
-
         val preConversion = convertNumber(string, BASE_47, BASE_2)
 
         var prependZero = 8 - preConversion.length % 8
@@ -251,8 +246,7 @@ object Base47 {
         }
 
         if (index < 0) {
-            throw UnsupportedOperationException(
-                    "Unable to find string charset for base $base: $digit")
+            throw UnsupportedOperationException("Unable to find string charset for base $base: $digit")
         } else {
             return index
         }
