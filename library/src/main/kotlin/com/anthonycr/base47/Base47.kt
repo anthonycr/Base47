@@ -117,7 +117,7 @@ object Base47 {
 
     /**
      * Encodes a byte array as a string of emojis.
-
+     *
      * @param bytes the bytes to encode in base 47.
      *
      * @return the encoded string of emojis.
@@ -129,7 +129,7 @@ object Base47 {
     /**
      * Decodes a string of previously encoded emojis
      * back into the original byte array.
-
+     *
      * @param string the base 47 emoji string to decode.
      *
      * @return the original decoded bytes.
