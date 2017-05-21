@@ -11,10 +11,10 @@ import android.support.v7.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.widget.EditText
 import android.widget.TextView
 import com.anthonycr.base47.Base47
 import com.anthonycr.base47.R
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,10 +27,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val textViewEncoded = findViewById(R.id.textEncoded) as TextView
-        val textViewDecoded = findViewById(R.id.textDecoded) as TextView
-        val editText = findViewById(R.id.editText) as EditText
-
         handlerThread.start()
 
         editText.addTextChangedListener(object : TextWatcher {
@@ -39,7 +35,7 @@ class MainActivity : AppCompatActivity() {
             override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
 
             override fun afterTextChanged(editable: Editable) {
-                postOrQueueRunnable(Runnable { encode(editable.toString(), textViewEncoded, textViewDecoded) })
+                postOrQueueRunnable(Runnable { encode(editable.toString(), textEncoded, textDecoded) })
             }
         })
 
