@@ -73,9 +73,7 @@ object Base47 {
 
     private val PADDING_BYTE = "11111111"
 
-    private fun byteToString(bite: Byte): String {
-        return Integer.toBinaryString((bite.toInt() and 0xFF) + 0x100).substring(1)
-    }
+    private fun byteToString(bite: Byte) = Integer.toBinaryString((bite.toInt() and 0xFF) + 0x100).substring(1)
 
     private fun byteArrayToString(bytes: ByteArray): String {
         val stringBuilder = StringBuilder(bytes.size * 8)
@@ -97,8 +95,7 @@ object Base47 {
 
         val inner = StringBuilder(8)
 
-        var n = 0
-        while (n <= bytes.length - 8) {
+        for (n in 0..bytes.length - 8 step 8) {
             inner.setLength(0)
 
             for (i in 0..7) {
@@ -106,7 +103,6 @@ object Base47 {
             }
             newBytes[index] = Integer.parseInt(inner.toString(), 2).toByte()
             index++
-            n += 8
         }
 
         if (index != newBytes.size) {
@@ -124,9 +120,7 @@ object Base47 {
      *
      * @return the encoded string of emojis.
      */
-    fun encode(bytes: ByteArray): String {
-        return convertNumber(PADDING_BYTE + byteArrayToString(bytes), BASE_2, BASE_47).toString()
-    }
+    fun encode(bytes: ByteArray) = convertNumber(PADDING_BYTE + byteArrayToString(bytes), BASE_2, BASE_47).toString()
 
     /**
      * Decodes a string of previously encoded emojis
@@ -156,9 +150,7 @@ object Base47 {
         return bitStringToByteArray(postConversion.substring(PADDING_BYTE.length))
     }
 
-    private fun zeroAsBase(base: Int): String {
-        return valueToDigit(0, base)
-    }
+    private fun zeroAsBase(base: Int) = valueToDigit(0, base)
 
     private fun convertNumber(number: String, oldBase: Int, newBase: Int): StringBuilder {
 
@@ -210,11 +202,10 @@ object Base47 {
 
             valueBuilder.setLength(0)
 
-            var i = n
             val max = n + codePointCount
-            while (i < max) {
+
+            for (i in n..max - 1) {
                 valueBuilder.append(number[i])
-                i++
             }
 
             n += codePointCount
@@ -266,7 +257,6 @@ object Base47 {
         }
     }
 
-    private fun indexOf(array: Array<String>, string: String): Int {
-        return array.indices.firstOrNull { string == array[it] } ?: -1
-    }
+    private fun indexOf(array: Array<String>, string: String) = array.indices.firstOrNull { string == array[it] } ?: -1
+
 }
