@@ -71,6 +71,8 @@ object Base47 {
             "\uD83D\uDC3F", "\uD83E\uDD8D", "\uD83E\uDD8C"
     )
 
+    private val PADDING_BYTE = "11111111"
+
     private fun byteToString(bite: Byte): String {
         return Integer.toBinaryString((bite.toInt() and 0xFF) + 0x100).substring(1)
     }
@@ -123,7 +125,7 @@ object Base47 {
      * @return the encoded string of emojis.
      */
     fun encode(bytes: ByteArray): String {
-        return convertNumber(byteArrayToString(bytes), BASE_2, BASE_47).toString()
+        return convertNumber(PADDING_BYTE + byteArrayToString(bytes), BASE_2, BASE_47).toString()
     }
 
     /**
@@ -151,7 +153,7 @@ object Base47 {
 
         postConversion.append(preConversion)
 
-        return bitStringToByteArray(postConversion.toString())
+        return bitStringToByteArray(postConversion.substring(PADDING_BYTE.length))
     }
 
     private fun zeroAsBase(base: Int): String {

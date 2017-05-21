@@ -44,31 +44,31 @@ class Base47UnitTest {
     fun testEncode_Decode() {
         val start = System.currentTimeMillis()
 
-        // Make test deterministic
+        // Make the test deterministic
         mRandom.setSeed(0)
 
         for (n in 0..ITERATIONS - 1) {
-            val randomString = randomString(n)
+            val randomString = randomString()
 
-            val encoded = Base47.encode(randomString.toByteArray())
+            val encoded = Base47.encode(randomString)
             Assert.assertNotNull(randomString)
             Assert.assertNotNull(encoded)
             Assert.assertNotEquals(randomString, encoded)
 
             val decoded = Base47.decode(encoded)
 
-            Assert.assertEquals(randomString, String(decoded))
+            Assert.assertArrayEquals(randomString, decoded)
         }
         println("Encode/Decode took: " + (System.currentTimeMillis() - start) + " ms")
     }
 
-    private fun randomString(number: Int): String {
-        return BigInteger(number, mRandom).toString(32)
-    }
+    private fun randomString(): ByteArray {
+        val randomBytes = ByteArray(16)
+        mRandom.nextBytes(randomBytes)
 
-    companion object {
-
-        private val ITERATIONS = 300
+        return randomBytes
     }
 
 }
+
+private val ITERATIONS = 2000
