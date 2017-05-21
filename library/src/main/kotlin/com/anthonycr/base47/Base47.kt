@@ -141,7 +141,7 @@ object Base47 {
 
         val postConversion = StringBuilder(preConversion.length + prependZero)
 
-        for (n in 0..prependZero - 1) {
+        for (n in 0 until prependZero) {
             postConversion.append('0')
         }
 
@@ -204,7 +204,7 @@ object Base47 {
 
             val max = n + codePointCount
 
-            for (i in n..max - 1) {
+            for (i in n until max) {
                 valueBuilder.append(number[i])
             }
 
