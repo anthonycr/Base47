@@ -72,27 +72,24 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    companion object {
+}
 
-        private val TAG = "MainActivity"
-        private val MAIN = Handler(Looper.getMainLooper())
+private val TAG = "MainActivity"
+private val MAIN = Handler(Looper.getMainLooper())
 
-        @WorkerThread
-        private fun encode(textToEncode: String,
-                           encodeView: TextView,
-                           decodeView: TextView) {
-            val encoded = Base47.encode(textToEncode.toByteArray())
-            Log.d(TAG, "ENCODED: " + encoded)
+@WorkerThread
+private fun encode(textToEncode: String,
+                   encodeView: TextView,
+                   decodeView: TextView) {
+    val encoded = Base47.encode(textToEncode.toByteArray())
+    Log.d(TAG, "ENCODED: " + encoded)
 
-            val decoded = String(Base47.decode(encoded))
-            Log.d(TAG, "DECODED: " + decoded)
+    val decoded = String(Base47.decode(encoded))
+    Log.d(TAG, "DECODED: " + decoded)
 
-            MAIN.post {
-                val context = encodeView.context
-                encodeView.text = context.getString(R.string.encoded, encoded)
-                decodeView.text = context.getString(R.string.decoded, decoded)
-            }
-        }
+    MAIN.post {
+        val context = encodeView.context
+        encodeView.text = context.getString(R.string.encoded, encoded)
+        decodeView.text = context.getString(R.string.decoded, decoded)
     }
-
 }
